@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"fmt"
 	"net/http"
+	"net/url"
 	"time"
 )
 
@@ -42,8 +43,13 @@ func (b *bullServer) renderNotFound(w http.ResponseWriter, r *http.Request) erro
 	var buf bytes.Buffer
 	fmt.Fprintf(&buf, `# Error: page %q not found
 
+<<<<<<< HEAD
 To create this page <a href="%s/edit/%s">click here</a> or press <kbd>Ctrl/Meta<kbd> + <kbd>E</kbd>.
 	`, pageName, b.URLBullPrefix(), pageName)
+=======
+To create this page <a href="%sedit/%s">click here</a> or press <kbd>Ctrl/Meta<kbd> + <kbd>E</kbd>.
+	`, pageName, b.URLBullPrefix(), url.PathEscape(pageName))
+>>>>>>> 887518fbe2a61f2cf7224ef64cfc065c149bb8a5
 	if pageName == "index" {
 		nf, err := b.indexNotFound()
 		if err != nil {
